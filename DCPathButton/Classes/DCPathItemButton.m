@@ -9,47 +9,39 @@
 #import "DCPathItemButton.h"
 
 @interface DCPathItemButton ()
-
 @property (strong, nonatomic) UIImageView *backgroundImageView;
-
 @end
 
 @implementation DCPathItemButton
 
-- (instancetype)initWithImage:(UIImage *)image
-             highlightedImage:(UIImage *)highlightedImage
-              backgroundImage:(UIImage *)backgroundImage
-   backgroundHighlightedImage:(UIImage *)backgroundHighlightedImage
+-(id)initWithTitle:(NSString*)title image:(UIImage*)image
 {
     if (self = [super init]) {
+        CGRect itemFrame = CGRectMake(0, 0, image.size.width, image.size.height);
+     
+        UIFont *titleFont = [UIFont boldSystemFontOfSize:12.0f];
         
-        // Make sure the iteam has a certain frame
-        //
-        CGRect itemFrame = CGRectMake(0, 0, backgroundImage.size.width, backgroundImage.size.height);
+        CGRect bounds = [title boundingRectWithSize:CGSizeMake(70, MAXFLOAT) options:NSStringDrawingUsesLineFragmentOrigin attributes:[NSDictionary dictionaryWithObjectsAndKeys:titleFont,NSFontAttributeName,nil] context:nil];
         
-        if (!backgroundImage || !backgroundHighlightedImage) {
-            itemFrame = CGRectMake(0, 0, image.size.width, image.size.height);
-        }
-        self.frame = itemFrame;
+        itemFrame.size.height += bounds.size.height;
+        itemFrame.size.width = bounds.size.width;
+
+        [self setFrame:itemFrame];
         
-        // Configure the item's image
-        //
-        [self setImage:backgroundImage forState:UIControlStateNormal];
-        [self setImage:backgroundHighlightedImage forState:UIControlStateHighlighted];
+        [self setTitle:title forState:UIControlStateNormal];
+        [self.titleLabel setLineBreakMode:NSLineBreakByWordWrapping];
+        [self.titleLabel setFont:titleFont];
+        [self.titleLabel setTextAlignment:NSTextAlignmentCenter];
+        [self setTitleColor:[UIColor maDarkColor] forState:UIControlStateNormal];
+        [self setTitleEdgeInsets:UIEdgeInsetsMake(45, 0, 0, 0)];
         
-        // Configure background
-        //
-        _backgroundImageView = [[UIImageView alloc]initWithImage:image
-                                                highlightedImage:highlightedImage];
-        _backgroundImageView.center = CGPointMake(self.bounds.size.width/2, self.bounds.size.height/2);
+        _backgroundImageView = [[UIImageView alloc] initWithImage:image];
+        _backgroundImageView.center = CGPointMake(self.bounds.size.width/2, self.bounds.size.height/2-10);
         
         [self addSubview:_backgroundImageView];
-        
-        // Add an action for the item button
-        //
         [self addTarget:_delegate action:@selector(itemButtonTapped:) forControlEvents:UIControlEventTouchUpInside];
-        
     }
+   
     return self;
 }
 

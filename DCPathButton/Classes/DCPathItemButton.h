@@ -11,9 +11,7 @@
 @class DCPathItemButton;
 
 @protocol DCPathItemButtonDelegate <NSObject>
-
 - (void)itemButtonTapped:(DCPathItemButton *)itemButton;
-
 @end
 
 @interface DCPathItemButton : UIButton
@@ -21,9 +19,6 @@
 @property (assign, nonatomic) NSUInteger index;
 @property (weak, nonatomic) id<DCPathItemButtonDelegate> delegate;
 
-- (instancetype)initWithImage:(UIImage *)image
-             highlightedImage:(UIImage *)highlightedImage
-              backgroundImage:(UIImage *)backgroundImage
-   backgroundHighlightedImage:(UIImage *)backgroundHighlightedImage;
+-(id)initWithTitle:(NSString*)title image:(UIImage*)image;
 
 @end
