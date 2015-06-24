@@ -32,7 +32,7 @@
         [self.titleLabel setLineBreakMode:NSLineBreakByWordWrapping];
         [self.titleLabel setFont:titleFont];
         [self.titleLabel setTextAlignment:NSTextAlignmentCenter];
-        [self setTitleColor:[UIColor maDarkColor] forState:UIControlStateNormal];
+        [self setTitleColor:[UIColor colorWithWhite:75.0f/255.0f alpha:1.0] forState:UIControlStateNormal];
         [self setTitleEdgeInsets:UIEdgeInsetsMake(45, 0, 0, 0)];
         
         _backgroundImageView = [[UIImageView alloc] initWithImage:image];
