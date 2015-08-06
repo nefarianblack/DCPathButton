@@ -32,6 +32,7 @@
 @property (assign, nonatomic) SystemSoundID bloomSound;
 @property (assign, nonatomic) SystemSoundID foldSound;
 @property (assign, nonatomic) SystemSoundID selectedSound;
+@property (strong, nonatomic) UIButton *navBarImageView;
 
 @end
 
@@ -118,6 +119,11 @@
     bgToolbar.clipsToBounds = YES;
     */
     
+    self.navBarImageView = [[UIButton alloc] initWithFrame:CGRectMake(0, 0,  self.bloomSize.width, 64)];
+    [self.navBarImageView addTarget:self action:@selector(clickNav:) forControlEvents:UIControlEventTouchUpInside];
+    [self.navBarImageView setBackgroundColor:[UIColor greenColor]];
+    self.navBarImageView.backgroundColor = [UIColor clearColor];
+    
     
     UIImageView *imageview  = [[UIImageView alloc] initWithFrame:CGRectMake(0,0, self.bloomSize.width, self.bloomSize.height)];
     imageview.image = [UIImage imageNamed:@"bouncemenubg"];
@@ -139,6 +145,13 @@
     [_bottomView addGestureRecognizer:tapGesture];
 }
 
+- (void)clickNav:(UIButton *)sender {
+    [self pathCenterButtonFold];
+    [self.navBarImageView removeFromSuperview];
+    if ([_delegate respondsToSelector:@selector(centerTappedBloom:)]) {
+        [_delegate centerTappedBloom:self.isBloom];
+    }
+}
 
 - (void)configureSounds
 {
@@ -392,6 +405,9 @@
     self.center = CGPointMake(self.bloomSize.width / 2, self.bloomSize.height / 2);
     
     [self insertSubview:self.bottomView belowSubview:self.pathCenterButton];
+    
+    UIWindow *window = [UIApplication sharedApplication].keyWindow;
+    [window addSubview:self.navBarImageView];
     
     // 3. Excute the bottom view alpha animation
     //
