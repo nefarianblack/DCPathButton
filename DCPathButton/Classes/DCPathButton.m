@@ -121,7 +121,6 @@
     
     self.navBarImageView = [[UIButton alloc] initWithFrame:CGRectMake(0, 0,  self.bloomSize.width, 64)];
     [self.navBarImageView addTarget:self action:@selector(clickNav:) forControlEvents:UIControlEventTouchUpInside];
-    [self.navBarImageView setBackgroundColor:[UIColor greenColor]];
     self.navBarImageView.backgroundColor = [UIColor clearColor];
     
     
@@ -147,7 +146,6 @@
 
 - (void)clickNav:(UIButton *)sender {
     [self pathCenterButtonFold];
-    [self.navBarImageView removeFromSuperview];
     if ([_delegate respondsToSelector:@selector(centerTappedBloom:)]) {
         [_delegate centerTappedBloom:self.isBloom];
     }
@@ -279,6 +277,7 @@
 
 - (void)pathCenterButtonFold
 {
+    [self.navBarImageView removeFromSuperview];
     // Play fold sound
     //
     if (self.soundsEnable) {
@@ -560,6 +559,8 @@
     if ([_delegate respondsToSelector:@selector(itemButtonTappedAtIndex:)]) {
         
         DCPathItemButton *selectedButton = self.itemButtons[itemButton.tag];
+        
+        [self.navBarImageView removeFromSuperview];
         
         // Play selected sound
         //
