@@ -124,7 +124,7 @@
     [self.navBarImageView addTarget:self action:@selector(clickNav:) forControlEvents:UIControlEventTouchUpInside];
     self.navBarImageView.backgroundColor = [UIColor clearColor];
     
-    self.tabBarImageView = [[UIButton alloc] initWithFrame:CGRectMake(0, [UIScreen mainScreen].bounds.size.height,  self.bloomSize.width, 44)];
+    self.tabBarImageView = [[UIButton alloc] initWithFrame:CGRectMake(0, [UIScreen mainScreen].bounds.size.height - 44.f,  self.bloomSize.width, 44)];
     [self.tabBarImageView addTarget:self action:@selector(clickNav:) forControlEvents:UIControlEventTouchUpInside];
     self.tabBarImageView.backgroundColor = [UIColor clearColor];
     
