@@ -33,6 +33,7 @@
 @property (assign, nonatomic) SystemSoundID foldSound;
 @property (assign, nonatomic) SystemSoundID selectedSound;
 @property (strong, nonatomic) UIButton *navBarImageView;
+@property (strong, nonatomic) UIButton *tabBarImageView;
 
 @end
 
@@ -122,6 +123,10 @@
     self.navBarImageView = [[UIButton alloc] initWithFrame:CGRectMake(0, 0,  self.bloomSize.width, 64)];
     [self.navBarImageView addTarget:self action:@selector(clickNav:) forControlEvents:UIControlEventTouchUpInside];
     self.navBarImageView.backgroundColor = [UIColor clearColor];
+    
+    self.tabBarImageView = [[UIButton alloc] initWithFrame:CGRectMake(0, [UIScreen mainScreen].bounds.size.height,  self.bloomSize.width, 44)];
+    [self.tabBarImageView addTarget:self action:@selector(clickNav:) forControlEvents:UIControlEventTouchUpInside];
+    self.tabBarImageView.backgroundColor = [UIColor clearColor];
     
     
     UIImageView *imageview  = [[UIImageView alloc] initWithFrame:CGRectMake(0,0, self.bloomSize.width, self.bloomSize.height)];
@@ -278,6 +283,7 @@
 - (void)pathCenterButtonFold
 {
     [self.navBarImageView removeFromSuperview];
+    [self.tabBarImageView removeFromSuperview];
     // Play fold sound
     //
     if (self.soundsEnable) {
@@ -407,6 +413,7 @@
     
     UIWindow *window = [UIApplication sharedApplication].keyWindow;
     [window addSubview:self.navBarImageView];
+    [window addSubview:self.tabBarImageView];
     
     // 3. Excute the bottom view alpha animation
     //
@@ -561,6 +568,7 @@
         DCPathItemButton *selectedButton = self.itemButtons[itemButton.tag];
         
         [self.navBarImageView removeFromSuperview];
+        [self.tabBarImageView removeFromSuperview];
         
         // Play selected sound
         //
